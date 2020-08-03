@@ -53,14 +53,14 @@ namespace Endabgabe {
         savecanvasbutton.addEventListener("click", savePicture);
         painting.addEventListener("click", paint);
         eraser.addEventListener("click", erasing );
-        circle.addEventListener("click", drawCircle);
-        triangle.addEventListener("click", drawTriangle);
-        rect.addEventListener("click", drawRect);
-        heart.addEventListener("click", drawHeart);
+        circle.addEventListener("click", installDrawCircle);
+        triangle.addEventListener("click", installDrawTriangle);
+        rect.addEventListener("click", installDrawRect);
+        heart.addEventListener("click", installDrawHeart);
         startanimation.addEventListener("click", startAnimation);
         stopanimation.addEventListener("click", stopAnimation);
-        deleteobject.addEventListener("click", deleteObject);
-        moveobject.addEventListener("click", moveObject);
+        deleteobject.addEventListener("click", installDeleteObject);
+        moveobject.addEventListener("click", installMoveObject);
 
         username();
     }

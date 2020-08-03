@@ -7,13 +7,13 @@ namespace Endabgabe {
         document.getElementById("canvas")!.removeEventListener("mousedown", startErasing);
         document.getElementById("canvas")!.removeEventListener("mousemove", erase);
         document.getElementById("canvas")!.removeEventListener("mouseup", stopErasing);
-        document.getElementById("canvas")!.removeEventListener("click", drawCircle2);
+        document.getElementById("canvas")!.removeEventListener("click", installDrawCircle);
         document.getElementById("canvas")!.removeEventListener("mousedown", startMovingObject);
         document.getElementById("canvas")!.removeEventListener("mousemove", movingObject);
-        document.getElementById("canvas")!.removeEventListener("mouseup", stopmovingObject);
-        document.getElementById("canvas")!.removeEventListener("click", drawTriangle2);
-        document.getElementById("canvas")!.removeEventListener("click", deleteObject2)
-        document.getElementById("canvas")!.removeEventListener("click", drawHeart2);
+        document.getElementById("canvas")!.removeEventListener("mouseup", stopMovingObject);
+        document.getElementById("canvas")!.removeEventListener("click", installDrawTriangle);
+        document.getElementById("canvas")!.removeEventListener("click", deleteObject)
+        document.getElementById("canvas")!.removeEventListener("click", installDrawHeart);
         document.getElementById("canvas")!.removeEventListener("click", drawRect2);
     }
 
@@ -78,47 +78,46 @@ namespace Endabgabe {
             crc2.clearRect(0, 0, canvaswidth, canvasheight);
             while (symbols.length > 0) {
                 symbols.pop();
-                console.log(symbols.length);
             }
         } else {
             alert("Your picture hasn't been deleted");
         }
     }
 
-    export function drawCircle(): void {
+    export function installDrawCircle(): void {
         removeCanvasEventListeners();
-        document.getElementById("canvas")!.addEventListener("click", drawCircle2);
+        document.getElementById("canvas")!.addEventListener("click", drawCircle);
     }
 
-    function drawCircle2(_event: MouseEvent): void {
+    function drawCircle(_event: MouseEvent): void {
         let mycircle: Circle = new Circle (_event, radius, Math.floor(Math.random() * 20));
         mycircle.draw();
         symbols.push(mycircle);
     }
 
-    export function drawHeart(): void {
+    export function installDrawHeart(): void {
         removeCanvasEventListeners();
-        document.getElementById("canvas")!.addEventListener("click", drawHeart2);
+        document.getElementById("canvas")!.addEventListener("click", drawHeart);
     }
 
-    function drawHeart2(_event: MouseEvent): void {
+    function drawHeart(_event: MouseEvent): void {
         let myheart: Heart = new Heart (_event);
         myheart.draw();
         symbols.push(myheart);
     }
 
-    export function drawTriangle(): void {
+    export function installDrawTriangle(): void {
         removeCanvasEventListeners();
-        document.getElementById("canvas")!.addEventListener("click", drawTriangle2);
+        document.getElementById("canvas")!.addEventListener("click", drawTriangle);
     }
 
-    function drawTriangle2(_event: MouseEvent): void {
+    function drawTriangle(_event: MouseEvent): void {
         let mytriangle: Triangle = new Triangle(_event, triangleheight);
         mytriangle.draw();
         symbols.push(mytriangle);
     }
 
-    export function drawRect(): void {
+    export function installDrawRect(): void {
         removeCanvasEventListeners();
         document.getElementById("canvas")!.addEventListener("click", drawRect2);
     }
@@ -162,16 +161,16 @@ namespace Endabgabe {
         }
     }
 
-    export function deleteObject(): void {
+    export function installDeleteObject(): void {
         removeCanvasEventListeners();
-        document.getElementById("canvas")!.addEventListener("click", deleteObject2)
+        document.getElementById("canvas")!.addEventListener("click", deleteObject)
     }
 
-    function deleteObject2(_event: MouseEvent): void {
+    function deleteObject(_event: MouseEvent): void {
 
         for (let i: number = 0; i < symbols.length; i++){
-            let ty = symbols[i].getType()
-            switch (ty){
+            let type = symbols[i].getType()
+            switch (type){
                 case "Triangle":
                     if (-triangleheight / 2 <= symbols[i].position.x - 250 - _event.offsetX && triangleheight >= symbols[i].position.x - _event.offsetX &&
                         -triangleheight / 2 <= symbols[i].position.y + 250 - _event.offsetY && triangleheight >= symbols[i].position.y - _event.offsetY){
@@ -196,11 +195,11 @@ namespace Endabgabe {
         return;
     }
 
-    export function moveObject(): void {
+    export function installMoveObject(): void {
         removeCanvasEventListeners();
         document.getElementById("canvas")!.addEventListener("mousedown", startMovingObject);
         document.getElementById("canvas")!.addEventListener("mousemove", movingObject);
-        document.getElementById("canvas")!.addEventListener("mouseup", stopmovingObject);
+        document.getElementById("canvas")!.addEventListener("mouseup", stopMovingObject);
     }
 
     function startMovingObject(_event: MouseEvent): void {
@@ -244,7 +243,7 @@ namespace Endabgabe {
         }
     }
 
-    function stopmovingObject(): void { // Objekte auf dem Canvas sollen nach Loslassen der Maus wieder gezeichnet werden
+    function stopMovingObject(): void { // Objekte auf dem Canvas sollen nach Loslassen der Maus wieder gezeichnet werden
         for (let i: number = 0; i < symbols.length; i++) { 
             symbols[i].draw();
         }

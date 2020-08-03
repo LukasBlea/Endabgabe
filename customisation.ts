@@ -1,6 +1,6 @@
 namespace Endabgabe {
 
-    export function changePensilThickness(_event: Event) {
+    export function changePensilThickness() {
         let slider = <HTMLInputElement>document.getElementById("pensilThickness");
         pensilThickness = parseFloat(slider.value);
         crc2.lineWidth = pensilThickness;
@@ -10,9 +10,6 @@ namespace Endabgabe {
         let slider = <HTMLInputElement>document.getElementById("objectSize");
         let amount = parseFloat(slider.value);
         radius = amount;
-        for (let i: number = 0; i < symbols.length; i++) {
-            symbols[i].scale(amount);
-        }
     }
 
     export function changeCanvasSize(): number { 
@@ -21,17 +18,14 @@ namespace Endabgabe {
             case ("small"):
                 canvaswidth = canvas.width = window.innerWidth;
                 canvasheight = canvas.height = window.innerHeight / 3;
-                crc2.strokeStyle;
                 break;
             case ("medium"):
                 canvaswidth = canvas.width = window.innerWidth;
                 canvasheight = canvas.height = window.innerHeight / 2;
-                crc2.strokeStyle;
                 break;
             case ("large"):
                 canvaswidth = canvas.width = window.innerWidth;
                 canvasheight = canvas.height = window.innerHeight / 1.5;
-                crc2.strokeStyle;
                 break;
         }
         return canvasheight;
