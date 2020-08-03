@@ -1,7 +1,7 @@
 "use strict";
 var Endabgabe;
 (function (Endabgabe) {
-    function changePensilThickness(_event) {
+    function changePensilThickness() {
         let slider = document.getElementById("pensilThickness");
         Endabgabe.pensilThickness = parseFloat(slider.value);
         Endabgabe.crc2.lineWidth = Endabgabe.pensilThickness;
@@ -11,9 +11,6 @@ var Endabgabe;
         let slider = document.getElementById("objectSize");
         let amount = parseFloat(slider.value);
         Endabgabe.radius = amount;
-        for (let i = 0; i < Endabgabe.symbols.length; i++) {
-            Endabgabe.symbols[i].scale(amount);
-        }
     }
     Endabgabe.changeObjectSize = changeObjectSize;
     function changeCanvasSize() {
@@ -22,17 +19,14 @@ var Endabgabe;
             case ("small"):
                 Endabgabe.canvaswidth = Endabgabe.canvas.width = window.innerWidth;
                 Endabgabe.canvasheight = Endabgabe.canvas.height = window.innerHeight / 3;
-                Endabgabe.crc2.strokeStyle;
                 break;
             case ("medium"):
                 Endabgabe.canvaswidth = Endabgabe.canvas.width = window.innerWidth;
                 Endabgabe.canvasheight = Endabgabe.canvas.height = window.innerHeight / 2;
-                Endabgabe.crc2.strokeStyle;
                 break;
             case ("large"):
                 Endabgabe.canvaswidth = Endabgabe.canvas.width = window.innerWidth;
                 Endabgabe.canvasheight = Endabgabe.canvas.height = window.innerHeight / 1.5;
-                Endabgabe.crc2.strokeStyle;
                 break;
         }
         return Endabgabe.canvasheight;

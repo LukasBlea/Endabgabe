@@ -8,13 +8,13 @@ var Endabgabe;
         document.getElementById("canvas").removeEventListener("mousedown", startErasing);
         document.getElementById("canvas").removeEventListener("mousemove", erase);
         document.getElementById("canvas").removeEventListener("mouseup", stopErasing);
-        document.getElementById("canvas").removeEventListener("click", drawCircle2);
+        document.getElementById("canvas").removeEventListener("click", installDrawCircle);
         document.getElementById("canvas").removeEventListener("mousedown", startMovingObject);
         document.getElementById("canvas").removeEventListener("mousemove", movingObject);
-        document.getElementById("canvas").removeEventListener("mouseup", stopmovingObject);
-        document.getElementById("canvas").removeEventListener("click", drawTriangle2);
-        document.getElementById("canvas").removeEventListener("click", deleteObject2);
-        document.getElementById("canvas").removeEventListener("click", drawHeart2);
+        document.getElementById("canvas").removeEventListener("mouseup", stopMovingObject);
+        document.getElementById("canvas").removeEventListener("click", installDrawTriangle);
+        document.getElementById("canvas").removeEventListener("click", deleteObject);
+        document.getElementById("canvas").removeEventListener("click", installDrawHeart);
         document.getElementById("canvas").removeEventListener("click", drawRect2);
     }
     function paint() {
@@ -58,7 +58,7 @@ var Endabgabe;
         erase(_event);
     }
     function erase(_event) {
-        if (Endabgabe.eraser == false) {
+        if (Endabgabe.eraser == false || Endabgabe.animation == true) {
             console.log("Nicht am Radieren");
         }
         else {
@@ -74,7 +74,6 @@ var Endabgabe;
             Endabgabe.crc2.clearRect(0, 0, Endabgabe.canvaswidth, Endabgabe.canvasheight);
             while (Endabgabe.symbols.length > 0) {
                 Endabgabe.symbols.pop();
-                console.log(Endabgabe.symbols.length);
             }
         }
         else {
@@ -82,41 +81,41 @@ var Endabgabe;
         }
     }
     Endabgabe.clearCanvas = clearCanvas;
-    function drawCircle() {
+    function installDrawCircle() {
         removeCanvasEventListeners();
-        document.getElementById("canvas").addEventListener("click", drawCircle2);
+        document.getElementById("canvas").addEventListener("click", drawCircle);
     }
-    Endabgabe.drawCircle = drawCircle;
-    function drawCircle2(_event) {
+    Endabgabe.installDrawCircle = installDrawCircle;
+    function drawCircle(_event) {
         let mycircle = new Endabgabe.Circle(_event, Endabgabe.radius, Math.floor(Math.random() * 20));
         mycircle.draw();
         Endabgabe.symbols.push(mycircle);
     }
-    function drawHeart() {
+    function installDrawHeart() {
         removeCanvasEventListeners();
-        document.getElementById("canvas").addEventListener("click", drawHeart2);
+        document.getElementById("canvas").addEventListener("click", drawHeart);
     }
-    Endabgabe.drawHeart = drawHeart;
-    function drawHeart2(_event) {
+    Endabgabe.installDrawHeart = installDrawHeart;
+    function drawHeart(_event) {
         let myheart = new Endabgabe.Heart(_event);
         myheart.draw();
         Endabgabe.symbols.push(myheart);
     }
-    function drawTriangle() {
+    function installDrawTriangle() {
         removeCanvasEventListeners();
-        document.getElementById("canvas").addEventListener("click", drawTriangle2);
+        document.getElementById("canvas").addEventListener("click", drawTriangle);
     }
-    Endabgabe.drawTriangle = drawTriangle;
-    function drawTriangle2(_event) {
+    Endabgabe.installDrawTriangle = installDrawTriangle;
+    function drawTriangle(_event) {
         let mytriangle = new Endabgabe.Triangle(_event, Endabgabe.triangleheight);
         mytriangle.draw();
         Endabgabe.symbols.push(mytriangle);
     }
-    function drawRect() {
+    function installDrawRect() {
         removeCanvasEventListeners();
         document.getElementById("canvas").addEventListener("click", drawRect2);
     }
-    Endabgabe.drawRect = drawRect;
+    Endabgabe.installDrawRect = installDrawRect;
     function drawRect2(_event) {
         let myrect = new Endabgabe.Rectangle(_event);
         myrect.draw();
@@ -158,15 +157,15 @@ var Endabgabe;
         }
     }
     Endabgabe.update = update;
-    function deleteObject() {
+    function installDeleteObject() {
         removeCanvasEventListeners();
-        document.getElementById("canvas").addEventListener("click", deleteObject2);
+        document.getElementById("canvas").addEventListener("click", deleteObject);
     }
-    Endabgabe.deleteObject = deleteObject;
-    function deleteObject2(_event) {
+    Endabgabe.installDeleteObject = installDeleteObject;
+    function deleteObject(_event) {
         for (let i = 0; i < Endabgabe.symbols.length; i++) {
-            let ty = Endabgabe.symbols[i].getType();
-            switch (ty) {
+            let type = Endabgabe.symbols[i].getType();
+            switch (type) {
                 case "Triangle":
                     if (-Endabgabe.triangleheight / 2 <= Endabgabe.symbols[i].position.x - 250 - _event.offsetX && Endabgabe.triangleheight >= Endabgabe.symbols[i].position.x - _event.offsetX &&
                         -Endabgabe.triangleheight / 2 <= Endabgabe.symbols[i].position.y + 250 - _event.offsetY && Endabgabe.triangleheight >= Endabgabe.symbols[i].position.y - _event.offsetY) {
@@ -190,13 +189,13 @@ var Endabgabe;
         }
         return;
     }
-    function moveObject() {
+    function installMoveObject() {
         removeCanvasEventListeners();
         document.getElementById("canvas").addEventListener("mousedown", startMovingObject);
         document.getElementById("canvas").addEventListener("mousemove", movingObject);
-        document.getElementById("canvas").addEventListener("mouseup", stopmovingObject);
+        document.getElementById("canvas").addEventListener("mouseup", stopMovingObject);
     }
-    Endabgabe.moveObject = moveObject;
+    Endabgabe.installMoveObject = installMoveObject;
     function startMovingObject(_event) {
         Endabgabe.move = true;
         movingObject(_event);
@@ -236,7 +235,7 @@ var Endabgabe;
             }
         }
     }
-    function stopmovingObject() {
+    function stopMovingObject() {
         for (let i = 0; i < Endabgabe.symbols.length; i++) {
             Endabgabe.symbols[i].draw();
         }

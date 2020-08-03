@@ -47,14 +47,14 @@ var Endabgabe;
         savecanvasbutton.addEventListener("click", Endabgabe.savePicture);
         painting.addEventListener("click", Endabgabe.paint);
         eraser.addEventListener("click", Endabgabe.erasing);
-        circle.addEventListener("click", Endabgabe.drawCircle);
-        triangle.addEventListener("click", Endabgabe.drawTriangle);
-        rect.addEventListener("click", Endabgabe.drawRect);
-        heart.addEventListener("click", Endabgabe.drawHeart);
+        circle.addEventListener("click", Endabgabe.installDrawCircle);
+        triangle.addEventListener("click", Endabgabe.installDrawTriangle);
+        rect.addEventListener("click", Endabgabe.installDrawRect);
+        heart.addEventListener("click", Endabgabe.installDrawHeart);
         startanimation.addEventListener("click", Endabgabe.startAnimation);
         stopanimation.addEventListener("click", Endabgabe.stopAnimation);
-        deleteobject.addEventListener("click", Endabgabe.deleteObject);
-        moveobject.addEventListener("click", Endabgabe.moveObject);
+        deleteobject.addEventListener("click", Endabgabe.installDeleteObject);
+        moveobject.addEventListener("click", Endabgabe.installMoveObject);
         username();
     }
     function getUserName() {
