@@ -14,6 +14,7 @@ namespace Endabgabe {
         document.getElementById("canvas")!.removeEventListener("click", drawTriangle2);
         document.getElementById("canvas")!.removeEventListener("click", deleteObject2)
         document.getElementById("canvas")!.removeEventListener("click", drawHeart2);
+        document.getElementById("canvas")!.removeEventListener("click", drawRect2);
     }
 
     export function paint(): void {
@@ -30,8 +31,6 @@ namespace Endabgabe {
 
     function stopDrawing(): void {
         malen = false;
-        crc2.beginPath();
-        crc2.save();
     }
 
     function zeichnen(_event: MouseEvent): void {
@@ -62,7 +61,7 @@ namespace Endabgabe {
     }
 
     function erase(_event: MouseEvent): void {
-        if (eraser == false) {
+        if (eraser == false || animation == true) {
             console.log("Nicht am Radieren");
         } else {
                 crc2.clearRect(_event.offsetX - 25, _event.offsetY - 25, 50, 50);
@@ -94,7 +93,6 @@ namespace Endabgabe {
     function drawCircle2(_event: MouseEvent): void {
         let mycircle: Circle = new Circle (_event, radius, Math.floor(Math.random() * 20));
         mycircle.draw();
-        circles.push(mycircle);
         symbols.push(mycircle);
     }
 
@@ -106,7 +104,6 @@ namespace Endabgabe {
     function drawHeart2(_event: MouseEvent): void {
         let myheart: Heart = new Heart (_event);
         myheart.draw();
-        hearts.push(myheart);
         symbols.push(myheart);
     }
 
@@ -118,8 +115,18 @@ namespace Endabgabe {
     function drawTriangle2(_event: MouseEvent): void {
         let mytriangle: Triangle = new Triangle(_event, triangleheight);
         mytriangle.draw();
-        triangles.push(mytriangle);
         symbols.push(mytriangle);
+    }
+
+    export function drawRect(): void {
+        removeCanvasEventListeners();
+        document.getElementById("canvas")!.addEventListener("click", drawRect2);
+    }
+
+    function drawRect2(_event: MouseEvent): void {
+        let myrect: Rectangle = new Rectangle (_event);
+        myrect.draw();
+        symbols.push(myrect);
     }
 
     export function startAnimation(): void {
@@ -175,8 +182,15 @@ namespace Endabgabe {
                         && -symbols[i].size <= symbols[i].position.y - _event.offsetY && symbols[i].size >= symbols[i].position.y - _event.offsetY) {
                         symbols.splice(i, 1);
                     }
-                case "Hearts":
+                case "Heart":
                     break;
+                case "Rectangle":
+                    console.log("x", symbols[i].position.x - _event.offsetX);
+                    console.log("y", symbols[i].position.y - _event.offsetY);
+                    if (-150 <= symbols[i].position.x - _event.offsetX && 0 >= symbols[i].position.x - _event.offsetX 
+                        && -150 <= symbols[i].position.y - _event.offsetY && 0 >= symbols[i].position.y - _event.offsetY) {
+                        symbols.splice(i, 1);
+                    }
             }
         }
         return;
@@ -197,26 +211,34 @@ namespace Endabgabe {
     function movingObject(_event: MouseEvent): void {
         if (move == true) {
             for (let i: number = 0; i < symbols.length; i++){
-                let ty = symbols[i].getType()
-                switch (ty){
+                let type = symbols[i].getType()
+                switch (type){
                     case "Triangle":
                         if (-triangleheight / 2 <= symbols[i].position.x - 250 - _event.offsetX && triangleheight >= symbols[i].position.x - _event.offsetX &&
                             -triangleheight / 2 <= symbols[i].position.y + 250 - _event.offsetY && triangleheight >= symbols[i].position.y - _event.offsetY){
-                            symbols[i].position.x = _event.offsetX;
-                            symbols[i].position.y = _event.offsetY;
-                            crc2.clearRect(0, 0, canvaswidth, canvasheight);
-                            symbols[i].draw();
+                                symbols[i].position.x = _event.offsetX;
+                                symbols[i].position.y = _event.offsetY;
+                                crc2.clearRect(0, 0, canvaswidth, canvasheight);
+                                symbols[i].draw();
                         }
                     case "Circle":
                         if (-symbols[i].size <= symbols[i].position.x - _event.offsetX && symbols[i].size >= symbols[i].position.x - _event.offsetX
                             && -symbols[i].size <= symbols[i].position.y - _event.offsetY && symbols[i].size >= symbols[i].position.y - _event.offsetY) {
-                            symbols[i].position.x = _event.offsetX;
-                            symbols[i].position.y = _event.offsetY;
+                                symbols[i].position.x = _event.offsetX;
+                                symbols[i].position.y = _event.offsetY;
+                                crc2.clearRect(0, 0, canvaswidth, canvasheight);
+                                symbols[i].draw();
+                        }
+                    case "Heart":
+                    break;
+                    case "Rectangle":
+                        if (-150 <= symbols[i].position.x - _event.offsetX && 0 >= symbols[i].position.x - _event.offsetX 
+                        && -150 <= symbols[i].position.y - _event.offsetY && 0 >= symbols[i].position.y - _event.offsetY) {
+                            symbols[i].position.x = _event.offsetX - 75;
+                            symbols[i].position.y = _event.offsetY - 75;
                             crc2.clearRect(0, 0, canvaswidth, canvasheight);
                             symbols[i].draw();
                         }
-                    case "Hearts":
-                    break;
                 }
             }
         }

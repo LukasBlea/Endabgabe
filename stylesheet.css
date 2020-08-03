@@ -66,14 +66,14 @@ button {
 #clearCanvas:hover {
     border: 2px solid lightcoral;
     background-color: lightcoral;
-    color: white;
+    color: lightblue;
     box-shadow: 0 5px 15px -5px #00000070;
 }
 
 #paint:hover {
     border: 2px solid gray;
     background-color: gray;
-    color: white;
+    color: lightblue;
     box-shadow: 0 5px 15px -5px #00000070;
 }
 
@@ -81,63 +81,70 @@ button {
 #savePicture:hover {
     border: 2px solid green;
     background-color: green;
-    color: white;
+    color: lightblue;
     box-shadow: 0 5px 15px -5px #00000070;
 }
 
 #eraser:hover {
     border: 2px solid gray;
     background-color: gray;
-    color: white;
+    color: lightblue;
     box-shadow: 0 5px 15px -5px #00000070;
 }
 
 #drawCircle:hover {
     border: 2px solid gray;
     background-color: gray;
-    color: white;
+    color: lightblue;
     box-shadow: 0 5px 15px -5px #00000070;
 }
 
 #drawTriangle:hover {
     border: 2px solid gray;
     background-color: gray;
-    color: white;
+    color: lightblue;
     box-shadow: 0 5px 15px -5px #00000070;
 }
 
 #moveObject:hover {
     border: 2px solid gray;
     background-color: gray;
-    color: white;
+    color: lightblue;
     box-shadow: 0 5px 15px -5px #00000070;
 }
 
 #startAnimation:hover {
     border: 2px solid gray;
     background-color: gray;
-    color: white;
+    color: lightblue;
     box-shadow: 0 5px 15px -5px #00000070;
 }
 
 #stopAnimation:hover {
     border: 2px solid gray;
     background-color: gray;
-    color: white;
+    color: lightblue;
     box-shadow: 0 5px 15px -5px #00000070;
 }
 
 #restorePic:hover {
     border: 2px solid gray;
     background-color: gray;
-    color: white;
+    color: lightblue;
     box-shadow: 0 5px 15px -5px #00000070;
 }
 
 #drawHeart:hover {
     border: 2px solid gray;
     background-color: gray;
-    color: white;
+    color: lightblue;
+    box-shadow: 0 5px 15px -5px #00000070;
+}
+
+#drawRect:hover {
+    border: 2px solid gray;
+    background-color: gray;
+    color: lightblue;
     box-shadow: 0 5px 15px -5px #00000070;
 }
 

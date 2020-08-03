@@ -38,7 +38,7 @@ namespace Endabgabe {
     }
 
     async function sendData(_information: PictureProperties[], _name: string): Promise<void> {
-        let name: string = _name.replace(" ", "_");
+        let name: string = _name.replace("", "_");
         let canvasInfo: string[] = [];
         let width: string = Math.floor(canvaswidth).toString();
         let height: string = Math.floor(canvasheight).toString();

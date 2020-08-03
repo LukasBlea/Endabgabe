@@ -29,7 +29,7 @@ var Endabgabe;
         console.log(information);
     }
     async function sendData(_information, _name) {
-        let name = _name.replace(" ", "_");
+        let name = _name.replace("", "_");
         let canvasInfo = [];
         let width = Math.floor(Endabgabe.canvaswidth).toString();
         let height = Math.floor(Endabgabe.canvasheight).toString();

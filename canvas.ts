@@ -17,54 +17,51 @@ namespace Endabgabe {
     export let interval: boolean = false
     export let animation: boolean = false;
     export let counter: number = 0;
-    export let circles: Circle[] = [];
-    export let hearts: Heart[] = [];
-    export let triangles: Triangle[] = [];
     export let triangleheight = 200 * Math.cos(Math.PI / 6);
     export let move: boolean = false;
-    export let form: HTMLFormElement;
     export let url: string = "https://zauberbildlukas.herokuapp.com/";
     crc2.strokeStyle = "Black";
     export let symbols: Vector[] = [];
     export let user: string = getUserName();
 
-    function init(_event: Event): void {
+    function init(): void {
+
         let pensilthickness: HTMLInputElement = <HTMLInputElement>document.querySelector("input#pensilThickness");
-        pensilthickness.addEventListener("input", changeThickness);
         let objectSize: HTMLInputElement = <HTMLInputElement>document.querySelector("input#objectSize");
-        objectSize.addEventListener("input", changeSize);
-        let canvassize: HTMLSelectElement = <HTMLSelectElement>document.querySelector("select#canvasSize");
-        canvassize.addEventListener("change", canvasSize);
-        let pensilcolor: HTMLSelectElement = <HTMLSelectElement>document.querySelector("select#pensilColor");
-        pensilcolor.addEventListener("change", pensilColor);
-        let backgroundcolor: HTMLSelectElement = <HTMLSelectElement>document.querySelector("select#backgroundColor");
-        backgroundcolor.addEventListener("change", backgroundColor);
-        let clearcanvasbutton: HTMLButtonElement = <HTMLButtonElement>document.querySelector("button#clearCanvas");
-        clearcanvasbutton.addEventListener("click", clearCanvas);
-        let savecanvasbutton: HTMLButtonElement = <HTMLButtonElement>document.querySelector("button#savePicture");
-        savecanvasbutton.addEventListener("click", savePicture);
-        let painting: HTMLButtonElement = <HTMLButtonElement>document.querySelector("button#paint");
-        painting.addEventListener("click", paint);
-        let eraser: HTMLButtonElement = <HTMLButtonElement>document.querySelector("button#eraser");
-        eraser.addEventListener("click", erasing);
-        let circle: HTMLButtonElement = <HTMLButtonElement>document.querySelector("button#drawCircle");
-        circle.addEventListener("click", drawCircle);
-        let triangle: HTMLButtonElement = <HTMLButtonElement>document.querySelector("button#drawTriangle");
-        triangle.addEventListener("click", drawTriangle);
-        let heart: HTMLButtonElement = <HTMLButtonElement>document.querySelector("button#drawHeart");
-        heart.addEventListener("click", drawHeart);
-        let startanimation: HTMLButtonElement = <HTMLButtonElement>document.querySelector("button#startAnimation");
-        startanimation.addEventListener("click", startAnimation);
+        let canvassize: HTMLSelectElement = <HTMLSelectElement>document.querySelector("select#canvasSize");    
+        let pensilcolor: HTMLSelectElement = <HTMLSelectElement>document.querySelector("select#pensilColor");    
+        let backgroundcolor: HTMLSelectElement = <HTMLSelectElement>document.querySelector("select#backgroundColor");    
+        let clearcanvasbutton: HTMLButtonElement = <HTMLButtonElement>document.querySelector("button#clearCanvas");    
+        let savecanvasbutton: HTMLButtonElement = <HTMLButtonElement>document.querySelector("button#savePicture");    
+        let painting: HTMLButtonElement = <HTMLButtonElement>document.querySelector("button#paint");    
+        let eraser: HTMLButtonElement = <HTMLButtonElement>document.querySelector("button#eraser");     
+        let circle: HTMLButtonElement = <HTMLButtonElement>document.querySelector("button#drawCircle");      
+        let triangle: HTMLButtonElement = <HTMLButtonElement>document.querySelector("button#drawTriangle");       
+        let rect: HTMLButtonElement = <HTMLButtonElement>document.querySelector("button#drawRect");     
+        let heart: HTMLButtonElement = <HTMLButtonElement>document.querySelector("button#drawHeart");      
+        let startanimation: HTMLButtonElement = <HTMLButtonElement>document.querySelector("button#startAnimation");      
         let stopanimation: HTMLButtonElement = <HTMLButtonElement>document.querySelector("button#stopAnimation");
-        stopanimation.addEventListener("click", stopAnimation);
-        let fill: HTMLButtonElement = <HTMLButtonElement>document.querySelector("button#fillObject");
-        fill.addEventListener("click", fillObject);
         let deleteobject: HTMLButtonElement = <HTMLButtonElement>document.querySelector("button#deleteObject");
-        deleteobject.addEventListener("click", deleteObject);
         let moveobject: HTMLButtonElement = <HTMLButtonElement>document.querySelector("button#moveObject");
+
+        pensilthickness.addEventListener("input", changePensilThickness);
+        objectSize.addEventListener("input", changeObjectSize);
+        canvassize.addEventListener("change", changeCanvasSize);
+        pensilcolor.addEventListener("change", changePensilColor);
+        backgroundcolor.addEventListener("change", changeBackgroundColor);
+        clearcanvasbutton.addEventListener("click", clearCanvas);
+        savecanvasbutton.addEventListener("click", savePicture);
+        painting.addEventListener("click", paint);
+        eraser.addEventListener("click", erasing );
+        circle.addEventListener("click", drawCircle);
+        triangle.addEventListener("click", drawTriangle);
+        rect.addEventListener("click", drawRect);
+        heart.addEventListener("click", drawHeart);
+        startanimation.addEventListener("click", startAnimation);
+        stopanimation.addEventListener("click", stopAnimation);
+        deleteobject.addEventListener("click", deleteObject);
         moveobject.addEventListener("click", moveObject);
-        //let savedpics: HTMLInputElement = <HTMLInputElement>document.querySelector("input#savedPics");
-        //savedpics.addEventListener("change", savedPics);
+
         username();
     }
 

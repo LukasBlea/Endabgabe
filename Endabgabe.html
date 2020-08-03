@@ -15,6 +15,8 @@
     <script src="customisation.js" type="text/javascript" charset="UTF-8" async></script>
     <script src="savePicture.js" type="text/javascript" charset="UTF-8" async></script>
     <script src="server.js" type="text/javascript" charset="UTF-8" async></script>
+    <script src="rectangle.js" type="text/javascript" charset="UTF-8" async></script>
+
 
     <title>Zauberbild</title>
 </head>
@@ -28,9 +30,9 @@
             <button type="button" class="fa fa-paint-brush fa-5x" aria-hidden="true" id="paint"></button>
             <button type="button" class="fa fa-eraser fa-5x" aria-hidden="true" id="eraser"></button>
             <button type="button" class="fa fa-circle-o fa-5x" aria-hidden="true" id="drawCircle"></button>
-            <button type="button" class="fa fa-caret-up fa-5x" aria-hidden="true"id="drawTriangle"></button>
-            <button type="button" class="fa fa-heart fa-5x" aria-hidden="true"id="drawHeart"></button>
-            <button type="button" id="fillObject">Fill Object</button>
+            <button type="button" class="fa fa-caret-up fa-5x" aria-hidden="true" id="drawTriangle"></button>
+            <button type="button" class="fa fa-square-o fa-5x" aria-hidden="true" id="drawRect"></button>
+            <button type="button" class="fa fa-heart fa-5x" aria-hidden="true" id="drawHeart"></button>
             <span id="databaseItems">
                 <input id="savedPics" name="PictureCollection" list="picturecollection" placeholder="Other Pictures..."/>
                 <datalist id="picturecollection">
@@ -58,7 +60,7 @@
             </fieldset>
             <fieldset>
                 <legend>Pensil Thickness</legend>
-                <span class="slider">
+                <span id="slider">
                     <span>
                         1 Px
                         <input type="range" name="thickness" id="pensilThickness" min="1" max="50" step="1" value="1">
@@ -71,8 +73,8 @@
                 <span class="slider">
                     <span>
                         10 Px
-                        <input type="range" name="thickness" id="objectSize" min="10" max="500" step="10" value="10">
-                        500 Px
+                        <input type="range" name="thickness" id="objectSize" min="10" max="300" step="10" value="10">
+                        300 Px
                     </span>
                 </span>
             </fieldset>

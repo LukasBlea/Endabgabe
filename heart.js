@@ -11,18 +11,6 @@ var Endabgabe;
             let offset = this.velocity.copy(); // Offset == eine Kopie von Velocity;
             offset.scale(_timeslice);
             this.position.add(offset);
-            if (this.position.x - 100 > Endabgabe.canvaswidth) {
-                this.velocity.x = -this.velocity.x;
-            }
-            if (this.position.x - 300 < 0) {
-                this.velocity.x = -this.velocity.x;
-            }
-            if (this.position.y + 300 < 0) {
-                this.velocity.y = -this.velocity.y;
-            }
-            if (this.position.y + 300 > Endabgabe.canvasheight) {
-                this.velocity.y = -this.velocity.y;
-            }
         }
         draw() {
             Endabgabe.crc2.beginPath();

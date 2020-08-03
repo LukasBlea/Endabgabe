@@ -1,41 +1,22 @@
 "use strict";
 var Endabgabe;
 (function (Endabgabe) {
-    function changeThickness(_event) {
+    function changePensilThickness(_event) {
         let slider = document.getElementById("pensilThickness");
         Endabgabe.pensilThickness = parseFloat(slider.value);
         Endabgabe.crc2.lineWidth = Endabgabe.pensilThickness;
     }
-    Endabgabe.changeThickness = changeThickness;
-    function changeSize() {
+    Endabgabe.changePensilThickness = changePensilThickness;
+    function changeObjectSize() {
         let slider = document.getElementById("objectSize");
-        Endabgabe.radius = parseFloat(slider.value);
-        Endabgabe.crc2.lineWidth = Endabgabe.pensilThickness;
+        let amount = parseFloat(slider.value);
+        Endabgabe.radius = amount;
+        for (let i = 0; i < Endabgabe.symbols.length; i++) {
+            Endabgabe.symbols[i].scale(amount);
+        }
     }
-    Endabgabe.changeSize = changeSize;
-    function backgroundColor() {
-        let backgroundcolor = document.querySelector("select#backgroundColor");
-        Endabgabe.canvasbackground = backgroundcolor.value;
-        Endabgabe.canvas.style.background = Endabgabe.canvasbackground;
-        return Endabgabe.canvasbackground;
-    }
-    Endabgabe.backgroundColor = backgroundColor;
-    function pensilColor() {
-        let pensilcolor = document.querySelector("select#pensilColor");
-        Endabgabe.crc2.strokeStyle = pensilcolor.value;
-        Endabgabe.colorofpensil = pensilcolor.value;
-        return Endabgabe.colorofpensil;
-    }
-    Endabgabe.pensilColor = pensilColor;
-    function fillObject() {
-        let color = document.getElementById("pensilColor");
-        Endabgabe.fillcolor = color.value;
-        Endabgabe.crc2.fillStyle = Endabgabe.fillcolor;
-        Endabgabe.crc2.fill();
-        Endabgabe.crc2.save();
-    }
-    Endabgabe.fillObject = fillObject;
-    function canvasSize() {
+    Endabgabe.changeObjectSize = changeObjectSize;
+    function changeCanvasSize() {
         let canvassize = document.querySelector("select#canvasSize");
         switch (canvassize.value) {
             case ("small"):
@@ -56,6 +37,20 @@ var Endabgabe;
         }
         return Endabgabe.canvasheight;
     }
-    Endabgabe.canvasSize = canvasSize;
+    Endabgabe.changeCanvasSize = changeCanvasSize;
+    function changePensilColor() {
+        let pensilcolor = document.querySelector("select#pensilColor");
+        Endabgabe.crc2.strokeStyle = pensilcolor.value;
+        Endabgabe.colorofpensil = pensilcolor.value;
+        return Endabgabe.colorofpensil;
+    }
+    Endabgabe.changePensilColor = changePensilColor;
+    function changeBackgroundColor() {
+        let backgroundcolor = document.querySelector("select#backgroundColor");
+        Endabgabe.canvasbackground = backgroundcolor.value;
+        Endabgabe.canvas.style.background = Endabgabe.canvasbackground;
+        return Endabgabe.canvasbackground;
+    }
+    Endabgabe.changeBackgroundColor = changeBackgroundColor;
 })(Endabgabe || (Endabgabe = {}));
 //# sourceMappingURL=customisation.js.map

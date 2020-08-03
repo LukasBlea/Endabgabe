@@ -15,6 +15,7 @@ var Endabgabe;
         document.getElementById("canvas").removeEventListener("click", drawTriangle2);
         document.getElementById("canvas").removeEventListener("click", deleteObject2);
         document.getElementById("canvas").removeEventListener("click", drawHeart2);
+        document.getElementById("canvas").removeEventListener("click", drawRect2);
     }
     function paint() {
         removeCanvasEventListeners();
@@ -29,8 +30,6 @@ var Endabgabe;
     }
     function stopDrawing() {
         Endabgabe.malen = false;
-        Endabgabe.crc2.beginPath();
-        Endabgabe.crc2.save();
     }
     function zeichnen(_event) {
         if (Endabgabe.malen == false || Endabgabe.animation == true) {
@@ -91,7 +90,6 @@ var Endabgabe;
     function drawCircle2(_event) {
         let mycircle = new Endabgabe.Circle(_event, Endabgabe.radius, Math.floor(Math.random() * 20));
         mycircle.draw();
-        Endabgabe.circles.push(mycircle);
         Endabgabe.symbols.push(mycircle);
     }
     function drawHeart() {
@@ -102,7 +100,6 @@ var Endabgabe;
     function drawHeart2(_event) {
         let myheart = new Endabgabe.Heart(_event);
         myheart.draw();
-        Endabgabe.hearts.push(myheart);
         Endabgabe.symbols.push(myheart);
     }
     function drawTriangle() {
@@ -113,8 +110,17 @@ var Endabgabe;
     function drawTriangle2(_event) {
         let mytriangle = new Endabgabe.Triangle(_event, Endabgabe.triangleheight);
         mytriangle.draw();
-        Endabgabe.triangles.push(mytriangle);
         Endabgabe.symbols.push(mytriangle);
+    }
+    function drawRect() {
+        removeCanvasEventListeners();
+        document.getElementById("canvas").addEventListener("click", drawRect2);
+    }
+    Endabgabe.drawRect = drawRect;
+    function drawRect2(_event) {
+        let myrect = new Endabgabe.Rectangle(_event);
+        myrect.draw();
+        Endabgabe.symbols.push(myrect);
     }
     function startAnimation() {
         if (Endabgabe.counter == 0) {
@@ -171,8 +177,15 @@ var Endabgabe;
                         && -Endabgabe.symbols[i].size <= Endabgabe.symbols[i].position.y - _event.offsetY && Endabgabe.symbols[i].size >= Endabgabe.symbols[i].position.y - _event.offsetY) {
                         Endabgabe.symbols.splice(i, 1);
                     }
-                case "Hearts":
+                case "Heart":
                     break;
+                case "Rectangle":
+                    console.log("x", Endabgabe.symbols[i].position.x - _event.offsetX);
+                    console.log("y", Endabgabe.symbols[i].position.y - _event.offsetY);
+                    if (-150 <= Endabgabe.symbols[i].position.x - _event.offsetX && 0 >= Endabgabe.symbols[i].position.x - _event.offsetX
+                        && -150 <= Endabgabe.symbols[i].position.y - _event.offsetY && 0 >= Endabgabe.symbols[i].position.y - _event.offsetY) {
+                        Endabgabe.symbols.splice(i, 1);
+                    }
             }
         }
         return;
@@ -191,8 +204,8 @@ var Endabgabe;
     function movingObject(_event) {
         if (Endabgabe.move == true) {
             for (let i = 0; i < Endabgabe.symbols.length; i++) {
-                let ty = Endabgabe.symbols[i].getType();
-                switch (ty) {
+                let type = Endabgabe.symbols[i].getType();
+                switch (type) {
                     case "Triangle":
                         if (-Endabgabe.triangleheight / 2 <= Endabgabe.symbols[i].position.x - 250 - _event.offsetX && Endabgabe.triangleheight >= Endabgabe.symbols[i].position.x - _event.offsetX &&
                             -Endabgabe.triangleheight / 2 <= Endabgabe.symbols[i].position.y + 250 - _event.offsetY && Endabgabe.triangleheight >= Endabgabe.symbols[i].position.y - _event.offsetY) {
@@ -209,8 +222,16 @@ var Endabgabe;
                             Endabgabe.crc2.clearRect(0, 0, Endabgabe.canvaswidth, Endabgabe.canvasheight);
                             Endabgabe.symbols[i].draw();
                         }
-                    case "Hearts":
+                    case "Heart":
                         break;
+                    case "Rectangle":
+                        if (-150 <= Endabgabe.symbols[i].position.x - _event.offsetX && 0 >= Endabgabe.symbols[i].position.x - _event.offsetX
+                            && -150 <= Endabgabe.symbols[i].position.y - _event.offsetY && 0 >= Endabgabe.symbols[i].position.y - _event.offsetY) {
+                            Endabgabe.symbols[i].position.x = _event.offsetX - 75;
+                            Endabgabe.symbols[i].position.y = _event.offsetY - 75;
+                            Endabgabe.crc2.clearRect(0, 0, Endabgabe.canvaswidth, Endabgabe.canvasheight);
+                            Endabgabe.symbols[i].draw();
+                        }
                 }
             }
         }
