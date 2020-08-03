@@ -8,14 +8,14 @@ var Endabgabe;
         document.getElementById("canvas").removeEventListener("mousedown", startErasing);
         document.getElementById("canvas").removeEventListener("mousemove", erase);
         document.getElementById("canvas").removeEventListener("mouseup", stopErasing);
-        document.getElementById("canvas").removeEventListener("click", installDrawCircle);
+        document.getElementById("canvas").removeEventListener("click", drawCircle);
         document.getElementById("canvas").removeEventListener("mousedown", startMovingObject);
         document.getElementById("canvas").removeEventListener("mousemove", movingObject);
         document.getElementById("canvas").removeEventListener("mouseup", stopMovingObject);
-        document.getElementById("canvas").removeEventListener("click", installDrawTriangle);
+        document.getElementById("canvas").removeEventListener("click", drawTriangle);
         document.getElementById("canvas").removeEventListener("click", deleteObject);
-        document.getElementById("canvas").removeEventListener("click", installDrawHeart);
-        document.getElementById("canvas").removeEventListener("click", drawRect2);
+        document.getElementById("canvas").removeEventListener("click", drawHeart);
+        document.getElementById("canvas").removeEventListener("click", drawRect);
     }
     function paint() {
         removeCanvasEventListeners();
@@ -113,10 +113,10 @@ var Endabgabe;
     }
     function installDrawRect() {
         removeCanvasEventListeners();
-        document.getElementById("canvas").addEventListener("click", drawRect2);
+        document.getElementById("canvas").addEventListener("click", drawRect);
     }
     Endabgabe.installDrawRect = installDrawRect;
-    function drawRect2(_event) {
+    function drawRect(_event) {
         let myrect = new Endabgabe.Rectangle(_event);
         myrect.draw();
         Endabgabe.symbols.push(myrect);
