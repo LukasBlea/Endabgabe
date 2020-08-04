@@ -5,7 +5,7 @@ import * as Mongo from "mongodb";
 export namespace Endabgabe {
 
     let server: Http.Server = Http.createServer();
-    let saveCanvas: Mongo.Collection;
+    let canvasCollection: Mongo.Collection;
 
     let port: number | string | undefined = process.env.PORT;
     if (port == undefined)
@@ -21,9 +21,9 @@ export namespace Endabgabe {
 
     async function connectDatabase(_url: string): Promise<void> {
         let options: Mongo.MongoClientOptions = {useNewUrlParser: true, useUnifiedTopology: true};
-        let mongoCLient: Mongo.MongoClient = new Mongo.MongoClient (_url, options);
-        await mongoCLient.connect();
-        saveCanvas = mongoCLient.db("Zauberbild").collection("Pictures");
+        let mongoClient: Mongo.MongoClient = new Mongo.MongoClient (_url, options);
+        await mongoClient.connect();
+        canvasCollection = mongoClient.db("Zauberbild").collection("Pictures");
     }
 
     function handleRequest(_request: Http.IncomingMessage, _response: Http.ServerResponse): void {
@@ -46,6 +46,6 @@ export namespace Endabgabe {
     }
 
     function storeOrder(_order: any): void {
-        saveCanvas.insert(_order);
+        canvasCollection.insert(_order);
     }
 }

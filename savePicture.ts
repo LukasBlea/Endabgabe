@@ -13,17 +13,16 @@ namespace Endabgabe {
     export function savePicture(): void {
         let confirmation = confirm("Do you really want to save your picture?");
         if (confirmation == true) {
-            insertPicture(user);
+            formatPicture(user);
         } else {
             alert("Your picture hasn't been saved");
         }
     }
 
-    function insertPicture(_name: string): void {
-        let information: PictureProperties[] = [];
-        information.push();
+    function formatPicture(_user: string): void {
+        let pictureinformation: PictureProperties[] = [];
         for (let entry of symbols) {
-            let form: PictureProperties = {
+            let format: PictureProperties = {
             "type": entry.getType(),
             "positionX": Math.floor(entry.position.x),
             "positionY": Math.floor(entry.position.y),
@@ -31,14 +30,14 @@ namespace Endabgabe {
             "velocityY": Math.floor(entry.velocity.y),
             "size": entry.size,
             }
-        information.push(form);
+        pictureinformation.push(format);
         }
-        sendData(information, _name)
-        console.log(information);
+        sendPicture(pictureinformation, _user)
+        console.log(pictureinformation);
     }
 
-    async function sendData(_information: PictureProperties[], _name: string): Promise<void> {
-        let name: string = _name.replace("", "_");
+    async function sendPicture(_properties: PictureProperties[], _user: string): Promise<void> {
+        let name: string = _user;
         let canvasInfo: string[] = [];
         let width: string = Math.floor(canvaswidth).toString();
         let height: string = Math.floor(canvasheight).toString();
@@ -49,11 +48,10 @@ namespace Endabgabe {
         let canvasLook: string = JSON.stringify(canvasInfo);
         let canvasQuery: URLSearchParams = new URLSearchParams(canvasLook);
 
-        let info: string = JSON.stringify(_information);
-        let query: URLSearchParams = new URLSearchParams(info);
+        let objectProperties: string = JSON.stringify(_properties);
+        let objectQuery: URLSearchParams = new URLSearchParams(objectProperties);
         
-        let response: Response = await fetch (url + "?savePicture&" + name + canvasQuery.toString() + "&" + query.toString());
-        await fetch(url + "?insertName&" + name);
+        let response: Response = await fetch (url + "?savePicture&" + name + canvasQuery.toString() + "&" + objectQuery.toString());
 
         let responseText: string = await response.text();
         if (responseText != "") {
